@@ -10,11 +10,11 @@ const counter = function () {
     } else if (test !== 0) {
       sessionStorage.setItem("start-time", JSON.stringify(++test));
       console.log(test);
+      counterElement.textContent = test;
 
       const percentage = (test / 1000) * 300;
       progressBar.style.width = percentage + "%";
       progressBar.setAttribute("aria-valuenow", test);
-      counterElement.textContent = test;
     }
   };
   setInterval(updateCounter, 1000);
