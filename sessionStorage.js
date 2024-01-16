@@ -1,19 +1,15 @@
 const counter = function () {
   let counterElement = document.getElementById("counter");
-  let startTime = sessionStorage.getItem("start-time");
-  let test = 0;
-  if (!startTime) {
-    startTime = new Date().getTime();
-  }
+  let test = sessionStorage.getItem("start-time") || 0;
   const updateCounter = function () {
-    sessionStorage.setItem("start-time", JSON.stringify(test));
-    test++;
-    console.log(test);
-    let currentTime = new Date().getTime();
-    let elapsedTimeInSeconds = Math.floor(
-      (currentTime - parseInt(startTime)) / 1000
-    );
-    counterElement.textContent = elapsedTimeInSeconds;
+    if (test === 0) {
+      test++;
+      console.log(test);
+    } else if (test !== 0) {
+      sessionStorage.setItem("start-time", JSON.stringify(++test));
+      console.log(test);
+      counterElement.textContent = test;
+    }
   };
   setInterval(updateCounter, 1000);
   updateCounter();
