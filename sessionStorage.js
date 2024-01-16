@@ -1,6 +1,8 @@
 const counter = function () {
   let counterElement = document.getElementById("counter");
-  let test = sessionStorage.getItem("start-time") || 0;
+  let progressBar = document.querySelector(".progress-bar");
+  let test = parseInt(sessionStorage.getItem("start-time")) || 0;
+
   const updateCounter = function () {
     if (test === 0) {
       test++;
@@ -8,10 +10,15 @@ const counter = function () {
     } else if (test !== 0) {
       sessionStorage.setItem("start-time", JSON.stringify(++test));
       console.log(test);
+
+      const percentage = (test / 1000) * 300;
+      progressBar.style.width = percentage + "%";
+      progressBar.setAttribute("aria-valuenow", test);
       counterElement.textContent = test;
     }
   };
   setInterval(updateCounter, 1000);
   updateCounter();
 };
+
 window.onload = counter;
